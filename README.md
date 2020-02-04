@@ -1,6 +1,6 @@
 # Full Screen Menu for Flutter
 
-[![pub package](https://img.shields.io/badge/pub-0.1.1-blueviolet.svg)](https://pub.dev/packages/status_alert)
+[![pub package](https://img.shields.io/badge/pub-0.1.0-blueviolet.svg)](https://pub.dev/packages/full_screen_menu)
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/yako-dev/flutter-full-screen-menu/master/assets/full_screen_menu_logo.png" height="400px">
@@ -11,7 +11,7 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  full_screen_menu: ^0.1.1
+  full_screen_menu: ^0.1.0
 ```
 ```dart
 import 'package:full_screen_menu/full_screen_menu.dart';
