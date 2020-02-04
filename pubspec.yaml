@@ -1,0 +1,19 @@
+name: full_screen_menu
+description: Full screen menu for Flutter apps to give a user a broad variety of variants in beautiful way
+version: 0.1.0
+author: yako.io
+homepage: https://github.com/yako-dev/flutter-full-screen-menu
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  pedantic: ^1.8.0+1
+
+flutter:
