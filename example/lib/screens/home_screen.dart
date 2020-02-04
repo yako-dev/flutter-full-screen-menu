@@ -41,6 +41,9 @@ class HomeScreen extends StatelessWidget {
         FSMenuItem(
           icon: Icon(Icons.ac_unit, color: Colors.white),
           text: Text('Make colder', style: TextStyle(color: Colors.white)),
+          onTap: () {
+            print('Made Ukraine colder!');
+          },
         ),
         FSMenuItem(
           icon: Icon(Icons.grain, color: Colors.white),

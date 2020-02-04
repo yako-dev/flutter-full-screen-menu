@@ -17,29 +17,25 @@ class FSMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color textColor;
-    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    if (isDarkMode) {
-      textColor = Colors.white;
-    } else {
-      textColor = Colors.black;
-    }
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 50,
-          width: 50,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: gradient,
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: <Widget>[
+          Container(
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: gradient,
+            ),
+            child: icon,
           ),
-          child: icon,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: text,
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: text,
+          ),
+        ],
+      ),
     );
   }
 
