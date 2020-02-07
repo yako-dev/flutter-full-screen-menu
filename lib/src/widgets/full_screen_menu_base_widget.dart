@@ -9,7 +9,7 @@ class FullScreenMenuBaseWidget extends StatefulWidget {
   final Color backgroundColor;
   final VoidCallback onHide;
   final double blurPower;
-  final List<FSMenuItem> items;
+  final List<Widget> items;
   final BuildContext context;
 
   const FullScreenMenuBaseWidget({
@@ -32,7 +32,7 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
   AnimationController animationController;
   Animation<double> scaleAnimation;
   Animation<double> fadeAnimation;
-  List<FSMenuItem> items;
+  List<Widget> items;
 
   final Tween<double> scaleTween = Tween<double>(begin: 0.9, end: 1.0);
   final Tween<double> fadeTween = Tween<double>(begin: 0.0, end: 1.0);
@@ -42,8 +42,12 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
     initAnimations();
     items = [];
     for (int i = 0; i < widget.items.length; i++) {
-      items.add(widget.items[i]
-          .copyWith(gradient: gradients[i % widget.items.length]));
+      if(widget.items[i] is FSMenuItem) {
+        items.add((widget.items[i] as FSMenuItem)
+            .copyWith(gradient: gradients[i % widget.items.length]));
+      } else {
+        items.add(widget.items[i]);
+      }
     }
     super.initState();
   }

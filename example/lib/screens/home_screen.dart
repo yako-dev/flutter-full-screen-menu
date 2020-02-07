@@ -45,10 +45,7 @@ class HomeScreen extends StatelessWidget {
             print('Made Ukraine colder!');
           },
         ),
-        FSMenuItem(
-          icon: Icon(Icons.grain, color: Colors.white),
-          text: Text('Give a rain', style: TextStyle(color: Colors.white)),
-        ),
+        _customButton(),
         FSMenuItem(
           icon: Icon(Icons.wb_sunny, color: Colors.white),
           text: Text('Make hotter', style: TextStyle(color: Colors.white)),
@@ -63,5 +60,21 @@ class HomeScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget _customButton() {
+    return Column(children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: CircleAvatar(
+            radius: 26,
+            child: Icon(
+              Icons.grain,
+              color: Colors.white,
+            ),
+            backgroundColor: Colors.blueGrey),
+      ),
+      Text('Give a rain', style: TextStyle(color: Colors.white)),
+    ]);
   }
 }

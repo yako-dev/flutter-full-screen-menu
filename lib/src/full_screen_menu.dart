@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:full_screen_menu/src/widgets/fs_menu_item.dart';
 import 'package:full_screen_menu/src/utils/full_screen_menu_util.dart';
 import 'package:full_screen_menu/src/widgets/full_screen_menu_base_widget.dart';
 
 class FullScreenMenu {
   static void show(
     BuildContext context, {
-    List<FSMenuItem> items,
+    List<Widget> items,
     Color backgroundColor,
   }) {
     FullScreenMenuUtil.createView(
