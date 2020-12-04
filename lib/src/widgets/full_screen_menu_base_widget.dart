@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:full_screen_menu/src/models/gradients.dart';
 import 'package:full_screen_menu/src/widgets/fs_menu_item.dart';
 
+import '../models/gradients.dart';
+
 class FullScreenMenuBaseWidget extends StatefulWidget {
   final Color backgroundColor;
   final VoidCallback onHide;
@@ -42,9 +44,13 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
     initAnimations();
     items = [];
     for (int i = 0; i < widget.items.length; i++) {
-      if(widget.items[i] is FSMenuItem) {
+      var gradientIndex = i % widget.items.length;
+      if (gradientIndex >= gradients.length) {
+        gradientIndex %= gradients.length;
+      }
+      if (widget.items[i] is FSMenuItem) {
         items.add((widget.items[i] as FSMenuItem)
-            .copyWith(gradient: gradients[i % widget.items.length]));
+            .copyWith(gradient: gradients[gradientIndex]));
       } else {
         items.add(widget.items[i]);
       }
@@ -104,12 +110,13 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
       ),
       child: Container(
         width: screenWidth,
+        alignment: Alignment.bottomCenter,
         decoration: BoxDecoration(
           color: getBackgroundColor(),
         ),
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 35),
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 35),
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
