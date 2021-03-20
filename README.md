@@ -11,7 +11,7 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  full_screen_menu: ^0.1.3
+  full_screen_menu: ^1.0.0
 ```
 ```dart
 import 'package:full_screen_menu/full_screen_menu.dart';
@@ -27,11 +27,13 @@ import 'package:full_screen_menu/full_screen_menu.dart';
         FSMenuItem(
           icon: Icon(Icons.ac_unit, color: Colors.white),
           text: Text('Make colder'),
+          gradient: orangeGradient,
           onTap: () => print('Cool package check');
         ),
         FSMenuItem(
           icon: Icon(Icons.wb_sunny, color: Colors.white),
           text: Text('Make hotter'),
+          gradient: blueGradient,
         ),
       ],
     );

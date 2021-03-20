@@ -2,10 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:full_screen_menu/src/models/gradients.dart';
-import 'package:full_screen_menu/src/widgets/fs_menu_item.dart';
-
-import '../models/gradients.dart';
 
 class FullScreenMenuBaseWidget extends StatefulWidget {
   final Color backgroundColor;
@@ -34,7 +30,6 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
   AnimationController animationController;
   Animation<double> scaleAnimation;
   Animation<double> fadeAnimation;
-  List<Widget> items;
 
   final Tween<double> scaleTween = Tween<double>(begin: 0.9, end: 1.0);
   final Tween<double> fadeTween = Tween<double>(begin: 0.0, end: 1.0);
@@ -42,19 +37,6 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
   @override
   void initState() {
     initAnimations();
-    items = [];
-    for (int i = 0; i < widget.items.length; i++) {
-      var gradientIndex = i % widget.items.length;
-      if (gradientIndex >= gradients.length) {
-        gradientIndex %= gradients.length;
-      }
-      if (widget.items[i] is FSMenuItem) {
-        items.add((widget.items[i] as FSMenuItem)
-            .copyWith(gradient: gradients[gradientIndex]));
-      } else {
-        items.add(widget.items[i]);
-      }
-    }
     super.initState();
   }
 
@@ -123,7 +105,7 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
                 Padding(
                   padding: const EdgeInsets.all(30),
                   child: Wrap(
-                    children: items,
+                    children: widget.items,
                     spacing: 50,
                     runSpacing: 40,
                     alignment: WrapAlignment.center,

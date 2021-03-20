@@ -41,40 +41,32 @@ class HomeScreen extends StatelessWidget {
         FSMenuItem(
           icon: Icon(Icons.ac_unit, color: Colors.white),
           text: Text('Make colder', style: TextStyle(color: Colors.white)),
+          gradient: blueGradient,
           onTap: () {
             print('Made Ukraine colder!');
           },
         ),
-        _customButton(),
         FSMenuItem(
           icon: Icon(Icons.wb_sunny, color: Colors.white),
           text: Text('Make hotter', style: TextStyle(color: Colors.white)),
+          gradient: redGradient,
         ),
         FSMenuItem(
           icon: Icon(Icons.flash_on, color: Colors.white),
           text: Text('Lightning', style: TextStyle(color: Colors.white)),
+          gradient: orangeGradient,
+        ),
+        FSMenuItem(
+          icon: Icon(Icons.grain, color: Colors.white),
+          text: Text('Give a rain', style: TextStyle(color: Colors.white)),
+          gradient: deepPurpleGradient,
         ),
         FSMenuItem(
           icon: Icon(Icons.add, color: Colors.white),
           text: Text('Add to EU', style: TextStyle(color: Colors.white)),
+          gradient: blueGreyGradient,
         ),
       ],
     );
-  }
-
-  Widget _customButton() {
-    return Column(children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: CircleAvatar(
-            radius: 26,
-            child: Icon(
-              Icons.grain,
-              color: Colors.white,
-            ),
-            backgroundColor: Colors.blueGrey),
-      ),
-      Text('Give a rain', style: TextStyle(color: Colors.white)),
-    ]);
   }
 }
