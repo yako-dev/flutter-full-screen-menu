@@ -5,30 +5,39 @@ import 'package:full_screen_menu/full_screen_menu.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Full screen menu demo')),
-      body: Image.asset(
-        'assets/google_maps.png',
-        width: 700,
-        fit: BoxFit.fitWidth,
-      ),
-      bottomNavigationBar: FABBottomAppBar(
-        color: Colors.grey,
-        selectedColor: Theme.of(context).accentColor,
-        notchedShape: CircularNotchedRectangle(),
-        onTabSelected: (index) {},
-        items: [
-          FABBottomAppBarItem(
-              iconData: Icons.format_list_bulleted, text: 'lists'),
-          FABBottomAppBarItem(iconData: Icons.people, text: 'people'),
-          FABBottomAppBarItem(iconData: Icons.attach_money, text: 'money'),
-          FABBottomAppBarItem(iconData: Icons.more_horiz, text: 'dots'),
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => showFullScreenMenu(context),
-        child: Icon(Icons.add),
+    return WillPopScope(
+      onWillPop: () {
+        if (FullScreenMenu.isVisible) {
+          FullScreenMenu.hide();
+          return Future.value(false);
+        }
+        return Future.value(true);
+      },
+      child: Scaffold(
+        appBar: AppBar(title: Text('Full screen menu demo')),
+        body: Image.asset(
+          'assets/google_maps.png',
+          width: 700,
+          fit: BoxFit.fitWidth,
+        ),
+        bottomNavigationBar: FABBottomAppBar(
+          color: Colors.grey,
+          selectedColor: Theme.of(context).accentColor,
+          notchedShape: CircularNotchedRectangle(),
+          onTabSelected: (index) {},
+          items: [
+            FABBottomAppBarItem(
+                iconData: Icons.format_list_bulleted, text: 'lists'),
+            FABBottomAppBarItem(iconData: Icons.people, text: 'people'),
+            FABBottomAppBarItem(iconData: Icons.attach_money, text: 'money'),
+            FABBottomAppBarItem(iconData: Icons.more_horiz, text: 'dots'),
+          ],
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => showFullScreenMenu(context),
+          child: Icon(Icons.add),
+        ),
       ),
     );
   }

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
 class FullScreenMenuUtil {
-  static OverlayState state;
-  static OverlayEntry entry;
+  static OverlayState? state;
+  static OverlayEntry? entry;
   static bool isVisible = false;
 
   static void createView({
-    @required BuildContext context,
-    @required Widget child,
+    required BuildContext context,
+    required Widget child,
   }) async {
     if (!isVisible) {
       dismiss();
       state = Overlay.of(context);
       entry = OverlayEntry(builder: (_) => child);
       isVisible = true;
-      state.insert(entry);
+      state!.insert(entry!);
     }
   }
 

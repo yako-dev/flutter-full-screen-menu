@@ -4,15 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FullScreenMenuBaseWidget extends StatefulWidget {
-  final Color backgroundColor;
-  final VoidCallback onHide;
-  final double blurPower;
-  final List<Widget> items;
-  final BuildContext context;
+  final Color? backgroundColor;
+  final VoidCallback? onHide;
+  final double? blurPower;
+  final List<Widget>? items;
+  final BuildContext? context;
 
   const FullScreenMenuBaseWidget({
-    Key key,
-    @required this.backgroundColor,
+    Key? key,
+    required this.backgroundColor,
     this.onHide,
     this.blurPower,
     this.items,
@@ -26,10 +26,10 @@ class FullScreenMenuBaseWidget extends StatefulWidget {
 class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
     with SingleTickerProviderStateMixin {
   Duration animationDuration = Duration(milliseconds: 200);
-  AnimationController scaleController;
-  AnimationController animationController;
-  Animation<double> scaleAnimation;
-  Animation<double> fadeAnimation;
+  AnimationController? scaleController;
+  late AnimationController animationController;
+  late Animation<double> scaleAnimation;
+  late Animation<double> fadeAnimation;
 
   final Tween<double> scaleTween = Tween<double>(begin: 0.9, end: 1.0);
   final Tween<double> fadeTween = Tween<double>(begin: 0.0, end: 1.0);
@@ -105,7 +105,7 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
                 Padding(
                   padding: const EdgeInsets.all(30),
                   child: Wrap(
-                    children: widget.items,
+                    children: widget.items!,
                     spacing: 50,
                     runSpacing: 40,
                     alignment: WrapAlignment.center,
@@ -119,7 +119,7 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
                   onPressed: () async {
                     animationController.reverse();
                     await Future.delayed(animationDuration);
-                    widget.onHide();
+                    widget.onHide!();
                   },
                 ),
               ],
@@ -133,13 +133,13 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
   Color getBackgroundColor() {
     // TODO not working
     if (widget.backgroundColor == null) {
-      if (Theme.of(widget.context).brightness == Brightness.dark) {
+      if (Theme.of(widget.context!).brightness == Brightness.dark) {
         return Colors.black;
       } else {
         return Colors.white.withOpacity(0.85);
       }
     } else {
-      return widget.backgroundColor.withOpacity(0.85);
+      return widget.backgroundColor!.withOpacity(0.85);
     }
   }
 }

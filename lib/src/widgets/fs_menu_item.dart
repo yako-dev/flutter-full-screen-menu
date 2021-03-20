@@ -3,13 +3,13 @@ import 'package:flutter/widgets.dart';
 import 'package:full_screen_menu/src/models/gradients.dart';
 
 class FSMenuItem extends StatelessWidget {
-  final Text text;
-  final Icon icon;
-  final Function onTap;
-  final Gradient gradient;
+  final Text? text;
+  final Icon? icon;
+  final Function? onTap;
+  final Gradient? gradient;
 
   const FSMenuItem({
-    Key key,
+    Key? key,
     this.text,
     this.icon,
     this.onTap,
@@ -19,7 +19,7 @@ class FSMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap as void Function()?,
       child: Column(
         children: <Widget>[
           Container(
@@ -41,10 +41,10 @@ class FSMenuItem extends StatelessWidget {
   }
 
   FSMenuItem copyWith({
-    Text text,
-    Icon icon,
-    Function onTap,
-    Gradient gradient,
+    Text? text,
+    Icon? icon,
+    Function? onTap,
+    Gradient? gradient,
   }) {
     return FSMenuItem(
       text: text ?? this.text,

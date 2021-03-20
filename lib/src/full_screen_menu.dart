@@ -5,8 +5,8 @@ import 'package:full_screen_menu/src/widgets/full_screen_menu_base_widget.dart';
 class FullScreenMenu {
   static void show(
     BuildContext context, {
-    List<Widget> items,
-    Color backgroundColor,
+    List<Widget>? items,
+    Color? backgroundColor,
   }) {
     FullScreenMenuUtil.createView(
       context: context,
