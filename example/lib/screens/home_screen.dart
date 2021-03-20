@@ -64,7 +64,6 @@ class HomeScreen extends StatelessWidget {
         FSMenuItem(
           icon: Icon(Icons.add, color: Colors.white),
           text: Text('Add to EU', style: TextStyle(color: Colors.white)),
-          gradient: blueGreyGradient,
         ),
       ],
     );

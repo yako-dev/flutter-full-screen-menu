@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:full_screen_menu/src/models/gradients.dart';
 
 class FSMenuItem extends StatelessWidget {
   final Text text;
@@ -26,7 +27,7 @@ class FSMenuItem extends StatelessWidget {
             width: 50,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              gradient: gradient,
+              gradient: gradient ?? blueGreyGradient,
             ),
             child: icon,
           ),
