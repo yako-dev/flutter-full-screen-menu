@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
         ),
         bottomNavigationBar: FABBottomAppBar(
           color: Colors.grey,
-          selectedColor: Theme.of(context).accentColor,
+          selectedColor: Theme.of(context).colorScheme.secondary,
           notchedShape: CircularNotchedRectangle(),
           onTabSelected: (index) {},
           items: [
@@ -46,6 +46,7 @@ class HomeScreen extends StatelessWidget {
     FullScreenMenu.show(
       context,
       backgroundColor: Colors.black,
+      onTapBackground: false,
       items: [
         FSMenuItem(
           icon: Icon(Icons.ac_unit, color: Colors.white),

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:full_screen_menu/src/utils/full_screen_menu_util.dart';
 
 class FullScreenMenuBaseWidget extends StatefulWidget {
   final Color? backgroundColor;
@@ -9,15 +10,17 @@ class FullScreenMenuBaseWidget extends StatefulWidget {
   final double? blurPower;
   final List<Widget>? items;
   final BuildContext? context;
+  final Function(AnimationController) animationController;
 
-  const FullScreenMenuBaseWidget({
-    Key? key,
-    required this.backgroundColor,
-    this.onHide,
-    this.blurPower,
-    this.items,
-    this.context,
-  }) : super(key: key);
+  const FullScreenMenuBaseWidget(
+      {Key? key,
+      required this.backgroundColor,
+      this.onHide,
+      this.blurPower,
+      this.items,
+      this.context,
+      required this.animationController})
+      : super(key: key);
 
   @override
   __TDBaseWidgetState createState() => __TDBaseWidgetState();
@@ -27,7 +30,9 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
     with SingleTickerProviderStateMixin {
   Duration animationDuration = Duration(milliseconds: 200);
   AnimationController? scaleController;
+
   late AnimationController animationController;
+
   late Animation<double> scaleAnimation;
   late Animation<double> fadeAnimation;
 
@@ -37,6 +42,9 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
   @override
   void initState() {
     initAnimations();
+    if (FullScreenMenuUtil.isVisible == false) {
+      closeAnimations();
+    }
     super.initState();
   }
 
@@ -45,10 +53,17 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
       duration: Duration(milliseconds: 200),
       vsync: this,
     );
+    widget.animationController(animationController);
     scaleAnimation = scaleTween.animate(animationController);
     fadeAnimation = fadeTween.animate(animationController);
     animationController.forward();
     await Future.delayed(animationDuration);
+  }
+
+  Future<void> closeAnimations() async {
+    animationController.reverse();
+    await Future.delayed(animationDuration);
+    widget.onHide!();
   }
 
   @override
