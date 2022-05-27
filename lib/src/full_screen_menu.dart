@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:full_screen_menu/src/utils/full_screen_menu_util.dart';
 import 'package:full_screen_menu/src/widgets/full_screen_menu_base_widget.dart';
 
-AnimationController? animationController;
-Duration animationDuration = Duration(milliseconds: 200);
+AnimationController? _animationController;
+Duration _animationDuration = Duration(milliseconds: 200);
 
 class FullScreenMenu {
   static void show(
@@ -23,7 +23,7 @@ class FullScreenMenu {
               },
               child: FullScreenMenuBaseWidget(
                 animationController: (animation) {
-                  animationController = animation;
+                  _animationController = animation;
                 },
                 onHide: FullScreenMenuUtil.dismiss,
                 backgroundColor: backgroundColor,
@@ -33,7 +33,7 @@ class FullScreenMenu {
             )
           : FullScreenMenuBaseWidget(
               animationController: (animation) {
-                animationController = animation;
+                _animationController = animation;
               },
               onHide: FullScreenMenuUtil.dismiss,
               backgroundColor: backgroundColor,
@@ -44,8 +44,8 @@ class FullScreenMenu {
   }
 
   static void hide() async {
-    animationController!.reverse();
-    await Future.delayed(animationDuration);
+    _animationController!.reverse();
+    await Future.delayed(_animationDuration);
     FullScreenMenuUtil.dismiss();
   }
 
