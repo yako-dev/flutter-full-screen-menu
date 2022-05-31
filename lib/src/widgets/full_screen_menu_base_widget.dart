@@ -1,21 +1,27 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:full_screen_menu/src/utils/full_screen_menu_util.dart';
 
 class FullScreenMenuBaseWidget extends StatefulWidget {
+  /// This is the background color of your FullScreenMenu
   final Color? backgroundColor;
+
+  /// This is the function which is called by pressing FAB
   final VoidCallback? onHide;
-  final double? blurPower;
+
+  /// Items which you want to display
   final List<Widget>? items;
+
+  /// This is the context of your parent widget
   final BuildContext? context;
+
+  /// This is the animation with which the FullScreenMenu opens
   final Function(AnimationController) animationController;
 
   const FullScreenMenuBaseWidget(
       {Key? key,
       required this.backgroundColor,
       this.onHide,
-      this.blurPower,
       this.items,
       this.context,
       required this.animationController})
@@ -41,9 +47,6 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
   @override
   void initState() {
     initAnimations();
-    if (FullScreenMenuUtil.isVisible == false) {
-      closeAnimations();
-    }
     super.initState();
   }
 
@@ -57,12 +60,6 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
     fadeAnimation = fadeTween.animate(animationController);
     animationController.forward();
     await Future.delayed(animationDuration);
-  }
-
-  Future<void> closeAnimations() async {
-    animationController.reverse();
-    await Future.delayed(animationDuration);
-    widget.onHide!();
   }
 
   @override
@@ -132,7 +129,9 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
                   child: Icon(Icons.close, color: Colors.grey),
                   onPressed: () async {
                     animationController.reverse();
+
                     await Future.delayed(animationDuration);
+
                     widget.onHide!();
                   },
                 ),

@@ -6,12 +6,23 @@ AnimationController? _animationController;
 Duration _animationDuration = Duration(milliseconds: 200);
 
 class FullScreenMenu {
+  /// Show created menu.
   static void show(
     BuildContext context, {
     List<Widget>? items,
     Color? backgroundColor,
     bool closeMenuOnBackgroundTap = true,
   }) {
+    Widget child = FullScreenMenuBaseWidget(
+      animationController: (animation) {
+        _animationController = animation;
+      },
+      onHide: FullScreenMenuUtil.dismiss,
+      backgroundColor: backgroundColor,
+      items: items,
+      context: context,
+    );
+
     FullScreenMenuUtil.createView(
       context: context,
       child: closeMenuOnBackgroundTap
@@ -21,33 +32,20 @@ class FullScreenMenu {
                   FullScreenMenu.hide();
                 }
               },
-              child: FullScreenMenuBaseWidget(
-                animationController: (animation) {
-                  _animationController = animation;
-                },
-                onHide: FullScreenMenuUtil.dismiss,
-                backgroundColor: backgroundColor,
-                items: items,
-                context: context,
-              ),
+              child: child,
             )
-          : FullScreenMenuBaseWidget(
-              animationController: (animation) {
-                _animationController = animation;
-              },
-              onHide: FullScreenMenuUtil.dismiss,
-              backgroundColor: backgroundColor,
-              items: items,
-              context: context,
-            ),
+          : child,
     );
   }
 
+  /// Hide created menu.
   static void hide() async {
     _animationController!.reverse();
     await Future.delayed(_animationDuration);
     FullScreenMenuUtil.dismiss();
   }
 
+  /// Is the menu currently visible true when visible
+  /// and false when invivible.
   static get isVisible => FullScreenMenuUtil.isVisible;
 }
