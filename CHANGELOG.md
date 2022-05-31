@@ -1,3 +1,6 @@
+## [1.1.0] - [May 31, 2022]
+* Add animation to FullScreenMenu.hide() 
+
 ## [1.0.0] - [March 20, 2021]
 * Null safety
 * Gradients fix

@@ -5,14 +5,14 @@ import 'package:full_screen_menu/src/models/gradients.dart';
 class FSMenuItem extends StatelessWidget {
   final Text? text;
   final Icon? icon;
-  final Function? onTap;
+  final Function onTap;
   final Gradient? gradient;
 
   const FSMenuItem({
     Key? key,
     this.text,
     this.icon,
-    this.onTap,
+    required this.onTap,
     this.gradient,
   }) : super(key: key);
 

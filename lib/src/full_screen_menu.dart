@@ -10,11 +10,11 @@ class FullScreenMenu {
     BuildContext context, {
     List<Widget>? items,
     Color? backgroundColor,
-    bool onTapBackground = true,
+    bool closeMenuOnBackgroundTap = true,
   }) {
     FullScreenMenuUtil.createView(
       context: context,
-      child: onTapBackground
+      child: closeMenuOnBackgroundTap
           ? GestureDetector(
               onTap: () {
                 if (FullScreenMenu.isVisible) {
