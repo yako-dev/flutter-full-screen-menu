@@ -26,7 +26,7 @@ class FSMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap as void Function()?,
+      onTap: onTap as void Function(),
       child: Column(
         children: <Widget>[
           Container(

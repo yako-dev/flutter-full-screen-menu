@@ -45,7 +45,6 @@ class FullScreenMenu {
     FullScreenMenuUtil.dismiss();
   }
 
-  /// Is the menu currently visible true when visible
-  /// and false when invivible.
+  /// Is the menu currently opened
   static get isVisible => FullScreenMenuUtil.isVisible;
 }

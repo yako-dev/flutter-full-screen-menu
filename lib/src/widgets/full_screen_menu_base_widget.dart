@@ -3,19 +3,19 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class FullScreenMenuBaseWidget extends StatefulWidget {
-  /// This is the background color of your FullScreenMenu
+  /// Background color of your FullScreenMenu
   final Color? backgroundColor;
 
-  /// This is the function which is called by pressing FAB
+  /// Function which is called by pressing FAB
   final VoidCallback? onHide;
 
-  /// Items which you want to display
+  /// Menu items which you want to display
   final List<Widget>? items;
 
-  /// This is the context of your parent widget
+  /// The context of your parent widget
   final BuildContext? context;
 
-  /// This is the animation with which the FullScreenMenu opens
+  /// The animation with which the FullScreenMenu opens
   final Function(AnimationController) animationController;
 
   const FullScreenMenuBaseWidget(
@@ -35,9 +35,7 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
     with SingleTickerProviderStateMixin {
   Duration animationDuration = Duration(milliseconds: 200);
   AnimationController? scaleController;
-
   late AnimationController animationController;
-
   late Animation<double> scaleAnimation;
   late Animation<double> fadeAnimation;
 
@@ -129,9 +127,7 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
                   child: Icon(Icons.close, color: Colors.grey),
                   onPressed: () async {
                     animationController.reverse();
-
                     await Future.delayed(animationDuration);
-
                     widget.onHide!();
                   },
                 ),
