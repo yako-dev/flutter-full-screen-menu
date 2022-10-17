@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
         ),
         bottomNavigationBar: FABBottomAppBar(
           color: Colors.grey,
-          selectedColor: Theme.of(context).accentColor,
+          selectedColor: Theme.of(context).colorScheme.secondary,
           notchedShape: CircularNotchedRectangle(),
           onTabSelected: (index) {},
           items: [
@@ -46,6 +46,7 @@ class HomeScreen extends StatelessWidget {
     FullScreenMenu.show(
       context,
       backgroundColor: Colors.black,
+      closeMenuOnBackgroundTap: true,
       items: [
         FSMenuItem(
           icon: Icon(Icons.ac_unit, color: Colors.white),
@@ -59,20 +60,32 @@ class HomeScreen extends StatelessWidget {
           icon: Icon(Icons.wb_sunny, color: Colors.white),
           text: Text('Make hotter', style: TextStyle(color: Colors.white)),
           gradient: redGradient,
+          onTap: () {
+            print('Made Ukraine hotter!');
+          },
         ),
         FSMenuItem(
           icon: Icon(Icons.flash_on, color: Colors.white),
           text: Text('Lightning', style: TextStyle(color: Colors.white)),
           gradient: orangeGradient,
+          onTap: () {
+            print('Made Ukraine Lightning!');
+          },
         ),
         FSMenuItem(
           icon: Icon(Icons.grain, color: Colors.white),
           text: Text('Give a rain', style: TextStyle(color: Colors.white)),
           gradient: deepPurpleGradient,
+          onTap: () {
+            print('Gave Ukraine a rain!');
+          },
         ),
         FSMenuItem(
           icon: Icon(Icons.add, color: Colors.white),
           text: Text('Add to EU', style: TextStyle(color: Colors.white)),
+          onTap: () {
+            print('Added to EU');
+          },
         ),
       ],
     );
