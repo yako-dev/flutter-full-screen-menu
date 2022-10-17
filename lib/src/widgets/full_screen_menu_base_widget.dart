@@ -1,23 +1,31 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FullScreenMenuBaseWidget extends StatefulWidget {
+  /// Background color of your FullScreenMenu
   final Color? backgroundColor;
+
+  /// Function which is called by pressing FAB
   final VoidCallback? onHide;
-  final double? blurPower;
+
+  /// Menu items which you want to display
   final List<Widget>? items;
+
+  /// The context of your parent widget
   final BuildContext? context;
 
-  const FullScreenMenuBaseWidget({
-    Key? key,
-    required this.backgroundColor,
-    this.onHide,
-    this.blurPower,
-    this.items,
-    this.context,
-  }) : super(key: key);
+  /// The animation with which the FullScreenMenu opens
+  final Function(AnimationController) animationController;
+
+  const FullScreenMenuBaseWidget(
+      {Key? key,
+      required this.backgroundColor,
+      this.onHide,
+      this.items,
+      this.context,
+      required this.animationController})
+      : super(key: key);
 
   @override
   __TDBaseWidgetState createState() => __TDBaseWidgetState();
@@ -45,6 +53,7 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
       duration: Duration(milliseconds: 200),
       vsync: this,
     );
+    widget.animationController(animationController);
     scaleAnimation = scaleTween.animate(animationController);
     fadeAnimation = fadeTween.animate(animationController);
     animationController.forward();

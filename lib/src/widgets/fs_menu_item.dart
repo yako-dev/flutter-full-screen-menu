@@ -3,23 +3,30 @@ import 'package:flutter/widgets.dart';
 import 'package:full_screen_menu/src/models/gradients.dart';
 
 class FSMenuItem extends StatelessWidget {
+  /// Text that will be displayed on the item.
   final Text? text;
+
+  /// Icon that will be displayed on the item.
   final Icon? icon;
-  final Function? onTap;
+
+  /// The function that will be called when you click on item.
+  final Function onTap;
+
+  /// А gradient that will fill the background of your [icon].
   final Gradient? gradient;
 
   const FSMenuItem({
     Key? key,
     this.text,
     this.icon,
-    this.onTap,
+    required this.onTap,
     this.gradient,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap as void Function()?,
+      onTap: onTap as void Function(),
       child: Column(
         children: <Widget>[
           Container(

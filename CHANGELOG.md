@@ -1,3 +1,8 @@
+## [2.0.0] - [Oct 17, 2022]
+* Breaking change! onTap is mandatory for all the menu items
+* Add animation to FullScreenMenu.hide() 
+* Add ability to close the menu on background tap
+
 ## [1.0.0] - [March 20, 2021]
 * Null safety
 * Gradients fix
