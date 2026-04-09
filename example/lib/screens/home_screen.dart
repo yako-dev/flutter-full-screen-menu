@@ -15,10 +15,13 @@ class HomeScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(title: Text('Full screen menu demo')),
-        body: Image.asset(
-          'assets/google_maps.png',
-          width: 700,
-          fit: BoxFit.fitWidth,
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/google_maps.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
         bottomNavigationBar: FABBottomAppBar(
           color: Colors.grey,
