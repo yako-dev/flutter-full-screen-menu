@@ -6,58 +6,58 @@ class FullScreenMenuBaseWidget extends StatefulWidget {
   /// Background color of your FullScreenMenu
   final Color? backgroundColor;
 
-  /// Function which is called by pressing FAB
+  /// Function which is called by pressing the close button
   final VoidCallback? onHide;
 
   /// Menu items which you want to display
   final List<Widget>? items;
 
-  /// The context of your parent widget
+  /// Deprecated — no longer used. The widget uses its own BuildContext internally.
+  @Deprecated('No longer needed. The widget resolves its own context.')
   final BuildContext? context;
 
   /// The animation with which the FullScreenMenu opens
   final Function(AnimationController) animationController;
 
-  const FullScreenMenuBaseWidget(
-      {Key? key,
-      required this.backgroundColor,
-      this.onHide,
-      this.items,
-      this.context,
-      required this.animationController})
-      : super(key: key);
+  const FullScreenMenuBaseWidget({
+    Key? key,
+    required this.backgroundColor,
+    this.onHide,
+    this.items,
+    @Deprecated('No longer needed. The widget resolves its own context.')
+    // ignore: deprecated_member_use_from_same_package
+    this.context,
+    required this.animationController,
+  }) : super(key: key);
 
   @override
-  TDBaseWidgetState createState() => TDBaseWidgetState();
+  State<FullScreenMenuBaseWidget> createState() =>
+      _FullScreenMenuBaseWidgetState();
 }
 
-class TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
+class _FullScreenMenuBaseWidgetState extends State<FullScreenMenuBaseWidget>
     with SingleTickerProviderStateMixin {
-  Duration animationDuration = const Duration(milliseconds: 200);
-  AnimationController? scaleController;
+  static const Duration _animationDuration = Duration(milliseconds: 200);
+
   late AnimationController animationController;
   late Animation<double> scaleAnimation;
   late Animation<double> fadeAnimation;
 
-  final Tween<double> scaleTween = Tween<double>(begin: 0.9, end: 1.0);
-  final Tween<double> fadeTween = Tween<double>(begin: 0.0, end: 1.0);
-
   @override
   void initState() {
-    initAnimations();
     super.initState();
-  }
-
-  Future<void> initAnimations() async {
     animationController = AnimationController(
-      duration: const Duration(milliseconds: 200),
+      duration: _animationDuration,
       vsync: this,
     );
     widget.animationController(animationController);
-    scaleAnimation = scaleTween.animate(animationController);
-    fadeAnimation = fadeTween.animate(animationController);
+    scaleAnimation = Tween<double>(begin: 0.9, end: 1.0).animate(
+      animationController,
+    );
+    fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      animationController,
+    );
     animationController.forward();
-    await Future.delayed(animationDuration);
   }
 
   @override
@@ -71,39 +71,25 @@ class TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
     return SafeArea(
       child: Material(
         color: Colors.transparent,
-        child: Container(
-          child: buildBody(),
+        child: ScaleTransition(
+          scale: scaleAnimation,
+          child: FadeTransition(
+            opacity: fadeAnimation,
+            child: _buildContent(context),
+          ),
         ),
       ),
     );
   }
 
-  Widget buildBody() {
-    return ScaleTransition(
-      scale: scaleAnimation,
-      child: FadeTransition(
-        opacity: fadeAnimation,
-        child: buildContent(),
-      ),
-    );
-  }
-
-  Widget buildContent() {
-    double screenWidth =
-        MediaQuery.of(context).orientation == Orientation.portrait
-            ? MediaQuery.of(context).size.width
-            : MediaQuery.of(context).size.height;
-
+  Widget _buildContent(BuildContext context) {
     return BackdropFilter(
-      filter: ImageFilter.blur(
-        sigmaX: 2.0,
-        sigmaY: 2.0,
-      ),
+      filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
       child: Container(
-        width: screenWidth,
+        width: double.infinity,
         alignment: Alignment.bottomCenter,
         decoration: BoxDecoration(
-          color: getBackgroundColor(),
+          color: _getBackgroundColor(context),
         ),
         child: Padding(
           padding: const EdgeInsets.only(bottom: 35),
@@ -117,19 +103,21 @@ class TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
                     spacing: 50,
                     runSpacing: 40,
                     alignment: WrapAlignment.center,
-                    children: widget.items!,
+                    children: widget.items ?? [],
                   ),
                 ),
                 FloatingActionButton(
                   backgroundColor: Colors.white,
                   mini: true,
-                  shape: const CircleBorder(side: BorderSide(color: Colors.grey)),
-                  child: const Icon(Icons.close, color: Colors.grey),
+                  shape: const CircleBorder(
+                    side: BorderSide(color: Colors.grey),
+                  ),
                   onPressed: () async {
                     animationController.reverse();
-                    await Future.delayed(animationDuration);
-                    widget.onHide!();
+                    await Future.delayed(_animationDuration);
+                    widget.onHide?.call();
                   },
+                  child: const Icon(Icons.close, color: Colors.grey),
                 ),
               ],
             ),
@@ -139,15 +127,16 @@ class TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
     );
   }
 
-  Color getBackgroundColor() {
-    // TODO not working
+  Color _getBackgroundColor(BuildContext context) {
     if (widget.backgroundColor == null) {
-      if (Theme.of(widget.context!).brightness == Brightness.dark) {
+      if (Theme.of(context).brightness == Brightness.dark) {
         return Colors.black;
       } else {
+        // ignore: deprecated_member_use
         return Colors.white.withOpacity(0.85);
       }
     } else {
+      // ignore: deprecated_member_use
       return widget.backgroundColor!.withOpacity(0.85);
     }
   }

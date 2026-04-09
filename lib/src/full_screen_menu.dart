@@ -3,7 +3,7 @@ import 'package:full_screen_menu/src/utils/full_screen_menu_util.dart';
 import 'package:full_screen_menu/src/widgets/full_screen_menu_base_widget.dart';
 
 AnimationController? _animationController;
-Duration _animationDuration = const Duration(milliseconds: 200);
+const Duration _animationDuration = Duration(milliseconds: 200);
 
 class FullScreenMenu {
   /// Show created menu.
@@ -13,14 +13,13 @@ class FullScreenMenu {
     Color? backgroundColor,
     bool closeMenuOnBackgroundTap = true,
   }) {
-    Widget child = FullScreenMenuBaseWidget(
+    final child = FullScreenMenuBaseWidget(
       animationController: (animation) {
         _animationController = animation;
       },
       onHide: FullScreenMenuUtil.dismiss,
       backgroundColor: backgroundColor,
       items: items,
-      context: context,
     );
 
     FullScreenMenuUtil.createView(
@@ -40,11 +39,12 @@ class FullScreenMenu {
 
   /// Hide created menu.
   static void hide() async {
+    if (_animationController == null) return;
     _animationController!.reverse();
     await Future.delayed(_animationDuration);
     FullScreenMenuUtil.dismiss();
   }
 
-  /// Is the menu currently opened
-  static get isVisible => FullScreenMenuUtil.isVisible;
+  /// Is the menu currently visible.
+  static bool get isVisible => FullScreenMenuUtil.isVisible;
 }

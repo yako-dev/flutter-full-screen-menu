@@ -3,20 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:full_screen_menu/full_screen_menu.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) return;
         if (FullScreenMenu.isVisible) {
           FullScreenMenu.hide();
-          return Future.value(false);
         }
-        return Future.value(true);
       },
       child: Scaffold(
-        appBar: AppBar(title: Text('Full screen menu demo')),
+        appBar: AppBar(title: const Text('Full screen menu demo')),
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/google_maps.png'),
               fit: BoxFit.cover,
@@ -26,7 +28,7 @@ class HomeScreen extends StatelessWidget {
         bottomNavigationBar: FABBottomAppBar(
           color: Colors.grey,
           selectedColor: Theme.of(context).colorScheme.secondary,
-          notchedShape: CircularNotchedRectangle(),
+          notchedShape: const CircularNotchedRectangle(),
           onTabSelected: (index) {},
           items: [
             FABBottomAppBarItem(
@@ -38,57 +40,50 @@ class HomeScreen extends StatelessWidget {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
-          onPressed: () => showFullScreenMenu(context),
-          child: Icon(Icons.add),
+          onPressed: () => _showFullScreenMenu(context),
+          child: const Icon(Icons.add),
         ),
       ),
     );
   }
 
-  void showFullScreenMenu(BuildContext context) {
+  void _showFullScreenMenu(BuildContext context) {
     FullScreenMenu.show(
       context,
       backgroundColor: Colors.black,
       closeMenuOnBackgroundTap: true,
       items: [
         FSMenuItem(
-          icon: Icon(Icons.ac_unit, color: Colors.white),
-          text: Text('Make colder', style: TextStyle(color: Colors.white)),
+          icon: const Icon(Icons.ac_unit, color: Colors.white),
+          text: const Text(
+              'Make colder', style: TextStyle(color: Colors.white)),
           gradient: blueGradient,
-          onTap: () {
-            print('Made Ukraine colder!');
-          },
+          onTap: () => debugPrint('Make colder'),
         ),
         FSMenuItem(
-          icon: Icon(Icons.wb_sunny, color: Colors.white),
-          text: Text('Make hotter', style: TextStyle(color: Colors.white)),
+          icon: const Icon(Icons.wb_sunny, color: Colors.white),
+          text: const Text(
+              'Make hotter', style: TextStyle(color: Colors.white)),
           gradient: redGradient,
-          onTap: () {
-            print('Made Ukraine hotter!');
-          },
+          onTap: () => debugPrint('Make hotter'),
         ),
         FSMenuItem(
-          icon: Icon(Icons.flash_on, color: Colors.white),
-          text: Text('Lightning', style: TextStyle(color: Colors.white)),
+          icon: const Icon(Icons.flash_on, color: Colors.white),
+          text: const Text('Lightning', style: TextStyle(color: Colors.white)),
           gradient: orangeGradient,
-          onTap: () {
-            print('Made Ukraine Lightning!');
-          },
+          onTap: () => debugPrint('Lightning'),
         ),
         FSMenuItem(
-          icon: Icon(Icons.grain, color: Colors.white),
-          text: Text('Give a rain', style: TextStyle(color: Colors.white)),
+          icon: const Icon(Icons.grain, color: Colors.white),
+          text: const Text(
+              'Give a rain', style: TextStyle(color: Colors.white)),
           gradient: deepPurpleGradient,
-          onTap: () {
-            print('Gave Ukraine a rain!');
-          },
+          onTap: () => debugPrint('Give a rain'),
         ),
         FSMenuItem(
-          icon: Icon(Icons.add, color: Colors.white),
-          text: Text('Add to EU', style: TextStyle(color: Colors.white)),
-          onTap: () {
-            print('Added to EU');
-          },
+          icon: const Icon(Icons.add, color: Colors.white),
+          text: const Text('Add to EU', style: TextStyle(color: Colors.white)),
+          onTap: () => debugPrint('Add to EU'),
         ),
       ],
     );

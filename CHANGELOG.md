@@ -1,7 +1,14 @@
-## [2.0.0] - [Oct 17, 2022]
-* Breaking change! onTap is mandatory for all the menu items
-* Add animation to FullScreenMenu.hide() 
-* Add ability to close the menu on background tap
+## [2.0.0] - [April 9, 2026]
+* Breaking change: `onTap` on `FSMenuItem` is now typed as `VoidCallback` instead of `Function`
+* Breaking change: Dart SDK constraint raised to `>=3.0.0 <4.0.0`
+* Add hide animation — `FullScreenMenu.hide()` now reverses the open animation before dismissing
+* Add `closeMenuOnBackgroundTap` option to `FullScreenMenu.show()`
+* Fix background color detection (dark/light theme was not applied correctly)
+* Fix null-safety crash when calling `hide()` before `show()`
+* Migrate example from deprecated `WillPopScope` to `PopScope` (Flutter 3+)
+* Update example Android: Gradle 8.9, AGP 8.7.0, Kotlin 2.1.0, Java 17
+* Replace deprecated `pedantic` with `flutter_lints`
+* Add comprehensive widget test suite
 
 ## [1.0.0] - [March 20, 2021]
 * Null safety

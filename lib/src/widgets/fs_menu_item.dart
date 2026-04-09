@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:full_screen_menu/src/models/gradients.dart';
 
 class FSMenuItem extends StatelessWidget {
@@ -10,7 +9,7 @@ class FSMenuItem extends StatelessWidget {
   final Icon? icon;
 
   /// The function that will be called when you click on item.
-  final Function onTap;
+  final VoidCallback onTap;
 
   /// А gradient that will fill the background of your [icon].
   final Gradient? gradient;
@@ -26,7 +25,7 @@ class FSMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap as void Function(),
+      onTap: onTap,
       child: Column(
         children: <Widget>[
           Container(
@@ -50,7 +49,7 @@ class FSMenuItem extends StatelessWidget {
   FSMenuItem copyWith({
     Text? text,
     Icon? icon,
-    Function? onTap,
+    VoidCallback? onTap,
     Gradient? gradient,
   }) {
     return FSMenuItem(
