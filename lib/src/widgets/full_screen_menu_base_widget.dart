@@ -28,12 +28,12 @@ class FullScreenMenuBaseWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  __TDBaseWidgetState createState() => __TDBaseWidgetState();
+  TDBaseWidgetState createState() => TDBaseWidgetState();
 }
 
-class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
+class TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
     with SingleTickerProviderStateMixin {
-  Duration animationDuration = Duration(milliseconds: 200);
+  Duration animationDuration = const Duration(milliseconds: 200);
   AnimationController? scaleController;
   late AnimationController animationController;
   late Animation<double> scaleAnimation;
@@ -50,7 +50,7 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
 
   Future<void> initAnimations() async {
     animationController = AnimationController(
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
       vsync: this,
     );
     widget.animationController(animationController);
@@ -114,17 +114,17 @@ class __TDBaseWidgetState extends State<FullScreenMenuBaseWidget>
                 Padding(
                   padding: const EdgeInsets.all(30),
                   child: Wrap(
-                    children: widget.items!,
                     spacing: 50,
                     runSpacing: 40,
                     alignment: WrapAlignment.center,
+                    children: widget.items!,
                   ),
                 ),
                 FloatingActionButton(
                   backgroundColor: Colors.white,
                   mini: true,
-                  shape: CircleBorder(side: BorderSide(color: Colors.grey)),
-                  child: Icon(Icons.close, color: Colors.grey),
+                  shape: const CircleBorder(side: BorderSide(color: Colors.grey)),
+                  child: const Icon(Icons.close, color: Colors.grey),
                   onPressed: () async {
                     animationController.reverse();
                     await Future.delayed(animationDuration);
