@@ -200,4 +200,30 @@ void main() {
       expect(FullScreenMenu.isVisible, isFalse);
     });
   });
+
+  testWidgets('FSMenuItem: a tap between icon and label triggers the item',
+      (tester) async {
+    var itemTaps = 0;
+    await tester.pumpWidget(_app());
+    FullScreenMenu.show(_context, items: [
+      FSMenuItem(
+        icon: const Icon(Icons.star),
+        text: const Text('A long label'),
+        onTap: () => itemTaps++,
+      ),
+    ]);
+    await tester.pumpAndSettle();
+
+    final item = tester.getRect(find.byType(FSMenuItem));
+    // 5 px below the 50 px circle, in the gap above the label. This used to
+    // miss the item and close the menu instead.
+    await tester.tapAt(Offset(item.center.dx, item.top + 55));
+    await tester.pump();
+    expect(itemTaps, 1);
+    // Beside the circle, above the label.
+    await tester.tapAt(item.topLeft + const Offset(2, 2));
+    await tester.pump();
+    expect(itemTaps, 2);
+    expect(FullScreenMenu.isVisible, isTrue);
+  });
 }
