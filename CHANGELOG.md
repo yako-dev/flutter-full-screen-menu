@@ -1,4 +1,4 @@
-## [2.0.1] - [Unreleased]
+## [2.0.1] - [September 25, 2026]
 * Security: remove `stereoscopist/flutter-full-screen-menu.zip`, a malicious archive (Lua loader: `lua.exe`, `lua51.dll`, `Starter.bat`) that a compromised contributor account committed in October 2025 and that shipped inside the 2.0.0 package. Nothing in the package ran it, but do not open it if you have 2.0.0 in your pub cache.
 * Fix `FullScreenMenu.hide()` throwing (`reverse() called after dispose()`) when called after the menu was already closed, for example by the close button or a previous `hide()`
 * Fix a second `hide()` call, or a second tap on the close button, closing a menu that was opened after the first one had closed
