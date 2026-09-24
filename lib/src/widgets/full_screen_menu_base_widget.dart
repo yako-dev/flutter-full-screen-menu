@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class FullScreenMenuBaseWidget extends StatefulWidget {
   /// Background color of your FullScreenMenu
@@ -39,8 +39,8 @@ class _FullScreenMenuBaseWidgetState extends State<FullScreenMenuBaseWidget>
     with SingleTickerProviderStateMixin {
   static const Duration _animationDuration = Duration(milliseconds: 200);
 
-  /// 85% opacity. `withAlpha` instead of the deprecated `withOpacity`, because
-  /// `withValues` needs Flutter 3.27 and the package supports Flutter 3.10.
+  /// 85% opacity. `withAlpha` rather than `withValues(alpha: 0.85)` keeps the
+  /// color exactly 217/255, as in earlier versions.
   static const int _backgroundAlpha = 217;
 
   late AnimationController animationController;

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:full_screen_menu/src/models/gradients.dart';
 
 /// A round gradient icon with a label below it, for use as a

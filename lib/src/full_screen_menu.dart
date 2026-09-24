@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:full_screen_menu/src/utils/full_screen_menu_util.dart';
 import 'package:full_screen_menu/src/widgets/full_screen_menu_base_widget.dart';
 
