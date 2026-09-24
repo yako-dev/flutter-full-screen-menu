@@ -20,7 +20,7 @@ class FullScreenMenuBaseWidget extends StatefulWidget {
   final Function(AnimationController) animationController;
 
   const FullScreenMenuBaseWidget({
-    Key? key,
+    super.key,
     required this.backgroundColor,
     this.onHide,
     this.items,
@@ -28,7 +28,7 @@ class FullScreenMenuBaseWidget extends StatefulWidget {
     // ignore: deprecated_member_use_from_same_package
     this.context,
     required this.animationController,
-  }) : super(key: key);
+  });
 
   @override
   State<FullScreenMenuBaseWidget> createState() =>
@@ -38,6 +38,10 @@ class FullScreenMenuBaseWidget extends StatefulWidget {
 class _FullScreenMenuBaseWidgetState extends State<FullScreenMenuBaseWidget>
     with SingleTickerProviderStateMixin {
   static const Duration _animationDuration = Duration(milliseconds: 200);
+
+  /// 85% opacity. `withAlpha` instead of the deprecated `withOpacity`, because
+  /// `withValues` needs Flutter 3.27 and the package supports Flutter 3.10.
+  static const int _backgroundAlpha = 217;
 
   late AnimationController animationController;
   late Animation<double> scaleAnimation;
@@ -132,12 +136,10 @@ class _FullScreenMenuBaseWidgetState extends State<FullScreenMenuBaseWidget>
       if (Theme.of(context).brightness == Brightness.dark) {
         return Colors.black;
       } else {
-        // ignore: deprecated_member_use
-        return Colors.white.withOpacity(0.85);
+        return Colors.white.withAlpha(_backgroundAlpha);
       }
     } else {
-      // ignore: deprecated_member_use
-      return widget.backgroundColor!.withOpacity(0.85);
+      return widget.backgroundColor!.withAlpha(_backgroundAlpha);
     }
   }
 }

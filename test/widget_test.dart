@@ -46,7 +46,8 @@ void main() {
       expect(FullScreenMenu.isVisible, isFalse);
     });
 
-    testWidgets('show() with closeMenuOnBackgroundTap=false does not close on tap',
+    testWidgets(
+        'show() with closeMenuOnBackgroundTap=false does not close on tap',
         (tester) async {
       await tester.pumpWidget(_buildApp(
         Builder(

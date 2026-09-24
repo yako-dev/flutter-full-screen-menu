@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:full_screen_menu/src/models/gradients.dart';
 
+/// A round gradient icon with a label below it, for use as a
+/// `FullScreenMenu` item.
 class FSMenuItem extends StatelessWidget {
   /// Text that will be displayed on the item.
   final Text? text;
@@ -14,13 +16,14 @@ class FSMenuItem extends StatelessWidget {
   /// А gradient that will fill the background of your [icon].
   final Gradient? gradient;
 
+  /// Creates a menu item. Only [onTap] is required.
   const FSMenuItem({
-    Key? key,
+    super.key,
     this.text,
     this.icon,
     required this.onTap,
     this.gradient,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +49,7 @@ class FSMenuItem extends StatelessWidget {
     );
   }
 
+  /// Returns a copy of this item with the given fields replaced.
   FSMenuItem copyWith({
     Text? text,
     Icon? icon,

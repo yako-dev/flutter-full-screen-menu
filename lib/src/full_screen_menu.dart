@@ -5,8 +5,14 @@ import 'package:full_screen_menu/src/widgets/full_screen_menu_base_widget.dart';
 AnimationController? _animationController;
 const Duration _animationDuration = Duration(milliseconds: 200);
 
+/// Shows and hides the full-screen menu. Only one menu is visible at a time.
 class FullScreenMenu {
-  /// Show created menu.
+  /// Shows a menu with [items] over the whole screen, in the [Overlay] of
+  /// [context]. Does nothing if a menu is already visible.
+  ///
+  /// [backgroundColor] is drawn at 85% opacity. When it is null the background
+  /// is black in a dark theme and white otherwise. With
+  /// [closeMenuOnBackgroundTap] a tap outside the items closes the menu.
   static void show(
     BuildContext context, {
     List<Widget>? items,
@@ -37,7 +43,7 @@ class FullScreenMenu {
     );
   }
 
-  /// Hide created menu.
+  /// Hides the visible menu with the closing animation.
   static void hide() async {
     if (_animationController == null) return;
     _animationController!.reverse();
