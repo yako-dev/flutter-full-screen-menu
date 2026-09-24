@@ -55,15 +55,15 @@ class HomeScreen extends StatelessWidget {
       items: [
         FSMenuItem(
           icon: const Icon(Icons.ac_unit, color: Colors.white),
-          text: const Text(
-              'Make colder', style: TextStyle(color: Colors.white)),
+          text:
+              const Text('Make colder', style: TextStyle(color: Colors.white)),
           gradient: blueGradient,
           onTap: () => debugPrint('Make colder'),
         ),
         FSMenuItem(
           icon: const Icon(Icons.wb_sunny, color: Colors.white),
-          text: const Text(
-              'Make hotter', style: TextStyle(color: Colors.white)),
+          text:
+              const Text('Make hotter', style: TextStyle(color: Colors.white)),
           gradient: redGradient,
           onTap: () => debugPrint('Make hotter'),
         ),
@@ -75,8 +75,8 @@ class HomeScreen extends StatelessWidget {
         ),
         FSMenuItem(
           icon: const Icon(Icons.grain, color: Colors.white),
-          text: const Text(
-              'Give a rain', style: TextStyle(color: Colors.white)),
+          text:
+              const Text('Give a rain', style: TextStyle(color: Colors.white)),
           gradient: deepPurpleGradient,
           onTap: () => debugPrint('Give a rain'),
         ),

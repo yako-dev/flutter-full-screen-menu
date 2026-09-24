@@ -38,7 +38,7 @@ class FABBottomAppBar extends StatefulWidget {
 class FABBottomAppBarState extends State<FABBottomAppBar> {
   int _selectedIndex = 0;
 
-  _updateIndex(int index) {
+  void _updateIndex(int index) {
     widget.onTabSelected(index);
     setState(() {
       _selectedIndex = index;
