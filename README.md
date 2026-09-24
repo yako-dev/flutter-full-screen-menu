@@ -12,10 +12,10 @@
 1. Add the dependency in your `pubspec.yaml` file.
 ```yaml
 dependencies:
-  full_screen_menu: ^2.0.0
+  full_screen_menu: ^2.0.1
 ```
 
-2. Import the `settings_ui` package.
+2. Import the `full_screen_menu` package.
 ```dart
 import 'package:full_screen_menu/full_screen_menu.dart';
 ```
@@ -23,62 +23,76 @@ import 'package:full_screen_menu/full_screen_menu.dart';
 
 ## Basic Usage:
 ```dart
-    FullScreenMenu.show(
-      context,
-      items: [
-        Image.asset('assets/image.png'),
-        FSMenuItem(
-          icon: Icon(Icons.ac_unit, color: Colors.white),
-          text: Text('Make colder'),
-          gradient: orangeGradient,
-          onTap: () => print('The weather is colder now');
-        ),
-        FSMenuItem(
-          icon: Icon(Icons.wb_sunny, color: Colors.white),
-          text: Text('Make hotter'),
-          gradient: blueGradient,
-          onTap: () => print('The weather is hotter now');
-        ),
-      ],
-    );
+FullScreenMenu.show(
+  context,
+  items: [
+    Image.asset('assets/image.png'),
+    FSMenuItem(
+      icon: const Icon(Icons.ac_unit, color: Colors.white),
+      text: const Text('Make colder'),
+      gradient: blueGradient,
+      onTap: () => print('The weather is colder now'),
+    ),
+    FSMenuItem(
+      icon: const Icon(Icons.wb_sunny, color: Colors.white),
+      text: const Text('Make hotter'),
+      gradient: orangeGradient,
+      onTap: () => print('The weather is hotter now'),
+    ),
+  ],
+);
+```
+
+Close the menu from code with `FullScreenMenu.hide()`, and check whether it is
+open with `FullScreenMenu.isVisible`. The menu is not a route, so to close it
+with the Android back button wrap your screen in a `PopScope`:
+
+```dart
+PopScope(
+  canPop: false,
+  onPopInvokedWithResult: (didPop, _) {
+    if (!didPop && FullScreenMenu.isVisible) FullScreenMenu.hide();
+  },
+  child: ...,
+);
 ```
 <br>
 <br>
 
-## Full Screen Menu Base Widget
+## FullScreenMenu.show
 
-The Full Screen Menu Base Widget is the block of your menu items located in your screen
+Shows the menu over the whole screen. The items and the close button stay
+inside the safe area.
 
 ### Parameters
 
 | Parameter | Description | Required |
 |--|--|--|
-| Color backgroundColor | Set a background color of your FullScreenMenu | +
-| VoidCallback onHide | Set a function which is called by pressing FAB| -
-| List<Widget> items | Set a menu items which you want to display | -
-| BuildContext context | Set the context of your parent widget | -
-| Function(AnimationController) animationController | Setup your animation when open full screen menu | +
+| BuildContext context | A context below the `Overlay` (for example below `MaterialApp`) | + |
+| List&lt;Widget&gt; items | The menu items. Any widget works, not just `FSMenuItem` | - |
+| Color backgroundColor | Background color, drawn at 85% opacity. Defaults to black in a dark theme and white otherwise | - |
+| bool closeMenuOnBackgroundTap | Close the menu when the user taps outside the items. Defaults to `true` | - |
 
-<br>
-<br>
 <br>
 <br>
 
 ## FSMenuItem
 
-The Full Screen Menu Base Widget is the block of your menu items located in your screen
+A round gradient icon with a label below it.
 
 ### Parameters
 
 | Parameter | Description | Required |
 |--|--|--|
-| Text text | Set the text that will be displayed on the item | -
-| Icon icon | Set the icon that will be displayed on the item| -
-| Function onTap | Set The function that will be called when you click on item | +
-| Gradient gradient | Set a gradient that will fill the background of your icon | +
+| VoidCallback onTap | Called when the user taps the item | + |
+| Text text | The label below the icon | - |
+| Icon icon | The icon inside the circle | - |
+| Gradient gradient | Fills the circle behind the icon. Defaults to `blueGreyGradient` | - |
 
-<br>
-<br>
+Predefined gradients: `orangeGradient`, `blueGradient`, `deepPurpleGradient`,
+`redGradient`, `greenGradient`, `lightBlueGradient`, `purpleGradient`,
+`lightGreenGradient` and `blueGreyGradient`.
+
 <br>
 <br>
 

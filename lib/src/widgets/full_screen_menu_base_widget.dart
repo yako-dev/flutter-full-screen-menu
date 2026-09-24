@@ -20,7 +20,7 @@ class FullScreenMenuBaseWidget extends StatefulWidget {
   final Function(AnimationController) animationController;
 
   const FullScreenMenuBaseWidget({
-    Key? key,
+    super.key,
     required this.backgroundColor,
     this.onHide,
     this.items,
@@ -28,7 +28,7 @@ class FullScreenMenuBaseWidget extends StatefulWidget {
     // ignore: deprecated_member_use_from_same_package
     this.context,
     required this.animationController,
-  }) : super(key: key);
+  });
 
   @override
   State<FullScreenMenuBaseWidget> createState() =>
@@ -39,9 +39,14 @@ class _FullScreenMenuBaseWidgetState extends State<FullScreenMenuBaseWidget>
     with SingleTickerProviderStateMixin {
   static const Duration _animationDuration = Duration(milliseconds: 200);
 
+  /// 85% opacity. `withAlpha` instead of the deprecated `withOpacity`, because
+  /// `withValues` needs Flutter 3.27 and the package supports Flutter 3.10.
+  static const int _backgroundAlpha = 217;
+
   late AnimationController animationController;
   late Animation<double> scaleAnimation;
   late Animation<double> fadeAnimation;
+  bool _closing = false;
 
   @override
   void initState() {
@@ -68,15 +73,13 @@ class _FullScreenMenuBaseWidgetState extends State<FullScreenMenuBaseWidget>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Material(
-        color: Colors.transparent,
-        child: ScaleTransition(
-          scale: scaleAnimation,
-          child: FadeTransition(
-            opacity: fadeAnimation,
-            child: _buildContent(context),
-          ),
+    return Material(
+      color: Colors.transparent,
+      child: ScaleTransition(
+        scale: scaleAnimation,
+        child: FadeTransition(
+          opacity: fadeAnimation,
+          child: _buildContent(context),
         ),
       ),
     );
@@ -91,35 +94,35 @@ class _FullScreenMenuBaseWidgetState extends State<FullScreenMenuBaseWidget>
         decoration: BoxDecoration(
           color: _getBackgroundColor(context),
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 35),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: Wrap(
-                    spacing: 50,
-                    runSpacing: 40,
-                    alignment: WrapAlignment.center,
-                    children: widget.items ?? [],
+        // The background covers the whole screen, including the status bar and
+        // home indicator areas; the items and close button stay inside them.
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 35),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: Wrap(
+                      spacing: 50,
+                      runSpacing: 40,
+                      alignment: WrapAlignment.center,
+                      children: widget.items ?? [],
+                    ),
                   ),
-                ),
-                FloatingActionButton(
-                  backgroundColor: Colors.white,
-                  mini: true,
-                  shape: const CircleBorder(
-                    side: BorderSide(color: Colors.grey),
+                  FloatingActionButton(
+                    backgroundColor: Colors.white,
+                    mini: true,
+                    shape: const CircleBorder(
+                      side: BorderSide(color: Colors.grey),
+                    ),
+                    onPressed: _close,
+                    child: const Icon(Icons.close, color: Colors.grey),
                   ),
-                  onPressed: () async {
-                    animationController.reverse();
-                    await Future.delayed(_animationDuration);
-                    widget.onHide?.call();
-                  },
-                  child: const Icon(Icons.close, color: Colors.grey),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -127,17 +130,24 @@ class _FullScreenMenuBaseWidgetState extends State<FullScreenMenuBaseWidget>
     );
   }
 
+  Future<void> _close() async {
+    if (_closing) return;
+    _closing = true;
+    animationController.reverse();
+    await Future.delayed(_animationDuration);
+    // Skip if the menu was already removed, so a menu opened since stays.
+    if (mounted) widget.onHide?.call();
+  }
+
   Color _getBackgroundColor(BuildContext context) {
     if (widget.backgroundColor == null) {
       if (Theme.of(context).brightness == Brightness.dark) {
         return Colors.black;
       } else {
-        // ignore: deprecated_member_use
-        return Colors.white.withOpacity(0.85);
+        return Colors.white.withAlpha(_backgroundAlpha);
       }
     } else {
-      // ignore: deprecated_member_use
-      return widget.backgroundColor!.withOpacity(0.85);
+      return widget.backgroundColor!.withAlpha(_backgroundAlpha);
     }
   }
 }
