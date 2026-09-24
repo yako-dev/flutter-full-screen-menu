@@ -46,6 +46,7 @@ class _FullScreenMenuBaseWidgetState extends State<FullScreenMenuBaseWidget>
   late AnimationController animationController;
   late Animation<double> scaleAnimation;
   late Animation<double> fadeAnimation;
+  bool _closing = false;
 
   @override
   void initState() {
@@ -116,11 +117,7 @@ class _FullScreenMenuBaseWidgetState extends State<FullScreenMenuBaseWidget>
                   shape: const CircleBorder(
                     side: BorderSide(color: Colors.grey),
                   ),
-                  onPressed: () async {
-                    animationController.reverse();
-                    await Future.delayed(_animationDuration);
-                    widget.onHide?.call();
-                  },
+                  onPressed: _close,
                   child: const Icon(Icons.close, color: Colors.grey),
                 ),
               ],
@@ -129,6 +126,15 @@ class _FullScreenMenuBaseWidgetState extends State<FullScreenMenuBaseWidget>
         ),
       ),
     );
+  }
+
+  Future<void> _close() async {
+    if (_closing) return;
+    _closing = true;
+    animationController.reverse();
+    await Future.delayed(_animationDuration);
+    // Skip if the menu was already removed, so a menu opened since stays.
+    if (mounted) widget.onHide?.call();
   }
 
   Color _getBackgroundColor(BuildContext context) {
