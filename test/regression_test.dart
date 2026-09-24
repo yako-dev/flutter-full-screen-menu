@@ -144,4 +144,60 @@ void main() {
     expect(FullScreenMenu.isVisible, isTrue);
     expect(find.text('second'), findsOneWidget);
   });
+
+  group('safe area', () {
+    const insets = EdgeInsets.only(top: 40, bottom: 30);
+
+    testWidgets('the background covers the status bar and home indicator',
+        (tester) async {
+      await tester.pumpWidget(_app(padding: insets));
+      FullScreenMenu.show(_context, backgroundColor: Colors.black);
+      await tester.pumpAndSettle();
+
+      final background = find.byWidgetPredicate(
+        (widget) =>
+            widget is DecoratedBox &&
+            widget.decoration is BoxDecoration &&
+            (widget.decoration as BoxDecoration).color ==
+                Colors.black.withAlpha(217),
+      );
+      expect(tester.getRect(background), Offset.zero & const Size(800, 600));
+
+      // The close button still stays clear of the home indicator.
+      final close = tester.getRect(find.byType(FloatingActionButton));
+      expect(close.bottom, lessThanOrEqualTo(600 - 30 - 35));
+    });
+
+    testWidgets('taps in the insets do not reach the app below',
+        (tester) async {
+      var appTaps = 0;
+      await tester.pumpWidget(_app(
+        padding: insets,
+        body: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => appTaps++,
+          child: const SizedBox.expand(),
+        ),
+      ));
+      FullScreenMenu.show(_context, closeMenuOnBackgroundTap: false);
+      await tester.pumpAndSettle();
+
+      await tester.tapAt(const Offset(400, 10)); // Status bar.
+      await tester.tapAt(const Offset(400, 590)); // Home indicator.
+      await tester.pump();
+      expect(appTaps, 0);
+      expect(FullScreenMenu.isVisible, isTrue);
+    });
+
+    testWidgets('a tap in the status bar area closes the menu', (tester) async {
+      await tester.pumpWidget(_app(padding: insets));
+      FullScreenMenu.show(_context);
+      await tester.pumpAndSettle();
+
+      await tester.tapAt(const Offset(400, 10));
+      await tester.pump(const Duration(milliseconds: 300));
+      await tester.pumpAndSettle();
+      expect(FullScreenMenu.isVisible, isFalse);
+    });
+  });
 }

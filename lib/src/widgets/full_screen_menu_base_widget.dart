@@ -73,15 +73,13 @@ class _FullScreenMenuBaseWidgetState extends State<FullScreenMenuBaseWidget>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Material(
-        color: Colors.transparent,
-        child: ScaleTransition(
-          scale: scaleAnimation,
-          child: FadeTransition(
-            opacity: fadeAnimation,
-            child: _buildContent(context),
-          ),
+    return Material(
+      color: Colors.transparent,
+      child: ScaleTransition(
+        scale: scaleAnimation,
+        child: FadeTransition(
+          opacity: fadeAnimation,
+          child: _buildContent(context),
         ),
       ),
     );
@@ -96,31 +94,35 @@ class _FullScreenMenuBaseWidgetState extends State<FullScreenMenuBaseWidget>
         decoration: BoxDecoration(
           color: _getBackgroundColor(context),
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 35),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: Wrap(
-                    spacing: 50,
-                    runSpacing: 40,
-                    alignment: WrapAlignment.center,
-                    children: widget.items ?? [],
+        // The background covers the whole screen, including the status bar and
+        // home indicator areas; the items and close button stay inside them.
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 35),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: Wrap(
+                      spacing: 50,
+                      runSpacing: 40,
+                      alignment: WrapAlignment.center,
+                      children: widget.items ?? [],
+                    ),
                   ),
-                ),
-                FloatingActionButton(
-                  backgroundColor: Colors.white,
-                  mini: true,
-                  shape: const CircleBorder(
-                    side: BorderSide(color: Colors.grey),
+                  FloatingActionButton(
+                    backgroundColor: Colors.white,
+                    mini: true,
+                    shape: const CircleBorder(
+                      side: BorderSide(color: Colors.grey),
+                    ),
+                    onPressed: _close,
+                    child: const Icon(Icons.close, color: Colors.grey),
                   ),
-                  onPressed: _close,
-                  child: const Icon(Icons.close, color: Colors.grey),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
