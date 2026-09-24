@@ -14,25 +14,27 @@ void main() {
 
   group('FullScreenMenu static API', () {
     testWidgets('show() inserts the menu into the overlay', (tester) async {
-      await tester.pumpWidget(_buildApp(
-        Builder(
-          builder: (context) => FloatingActionButton(
-            onPressed: () => FullScreenMenu.show(
-              context,
-              backgroundColor: Colors.black,
-              items: [
-                FSMenuItem(
-                  icon: const Icon(Icons.wb_sunny, color: Colors.white),
-                  text: const Text('Sunny'),
-                  gradient: redGradient,
-                  onTap: () {},
-                ),
-              ],
+      await tester.pumpWidget(
+        _buildApp(
+          Builder(
+            builder: (context) => FloatingActionButton(
+              onPressed: () => FullScreenMenu.show(
+                context,
+                backgroundColor: Colors.black,
+                items: [
+                  FSMenuItem(
+                    icon: const Icon(Icons.wb_sunny, color: Colors.white),
+                    text: const Text('Sunny'),
+                    gradient: redGradient,
+                    onTap: () {},
+                  ),
+                ],
+              ),
+              child: const Icon(Icons.add),
             ),
-            child: const Icon(Icons.add),
           ),
         ),
-      ));
+      );
 
       await tester.tap(find.byType(FloatingActionButton));
       await tester.pump();
@@ -47,31 +49,34 @@ void main() {
     });
 
     testWidgets(
-        'show() with closeMenuOnBackgroundTap=false does not close on tap',
-        (tester) async {
-      await tester.pumpWidget(_buildApp(
-        Builder(
-          builder: (context) => FloatingActionButton(
-            onPressed: () => FullScreenMenu.show(
-              context,
-              backgroundColor: Colors.black,
-              closeMenuOnBackgroundTap: false,
-              items: const [],
+      'show() with closeMenuOnBackgroundTap=false does not close on tap',
+      (tester) async {
+        await tester.pumpWidget(
+          _buildApp(
+            Builder(
+              builder: (context) => FloatingActionButton(
+                onPressed: () => FullScreenMenu.show(
+                  context,
+                  backgroundColor: Colors.black,
+                  closeMenuOnBackgroundTap: false,
+                  items: const [],
+                ),
+                child: const Icon(Icons.add),
+              ),
             ),
-            child: const Icon(Icons.add),
           ),
-        ),
-      ));
+        );
 
-      await tester.tap(find.byType(FloatingActionButton));
-      await tester.pump();
+        await tester.tap(find.byType(FloatingActionButton));
+        await tester.pump();
 
-      expect(FullScreenMenu.isVisible, isTrue);
-      // Tapping background should NOT close the menu.
-      await tester.tapAt(const Offset(10, 10));
-      await tester.pump();
-      expect(FullScreenMenu.isVisible, isTrue);
-    });
+        expect(FullScreenMenu.isVisible, isTrue);
+        // Tapping background should NOT close the menu.
+        await tester.tapAt(const Offset(10, 10));
+        await tester.pump();
+        expect(FullScreenMenu.isVisible, isTrue);
+      },
+    );
   });
 
   group('FullScreenMenuBaseWidget', () {
@@ -84,35 +89,35 @@ void main() {
     });
 
     Widget buildMenu() => FullScreenMenuBaseWidget(
-          onHide: FullScreenMenuUtil.dismiss,
-          backgroundColor: Colors.black,
-          animationController: (_) {},
-          items: [
-            FSMenuItem(
-              icon: const Icon(Icons.wb_sunny, color: Colors.white),
-              text: const Text(
-                'Make hotter',
-                style: TextStyle(color: Colors.white),
-              ),
-              gradient: redGradient,
-              onTap: () => sunnyPressed = true,
-            ),
-            FSMenuItem(
-              icon: const Icon(Icons.ac_unit, color: Colors.white),
-              text: const Text(
-                'Make colder',
-                style: TextStyle(color: Colors.white),
-              ),
-              gradient: blueGradient,
-              onTap: () => snowPressed = true,
-            ),
-            MaterialButton(
-              onPressed: () {},
-              color: Colors.blue,
-              child: const Text('Material'),
-            ),
-          ],
-        );
+      onHide: FullScreenMenuUtil.dismiss,
+      backgroundColor: Colors.black,
+      animationController: (_) {},
+      items: [
+        FSMenuItem(
+          icon: const Icon(Icons.wb_sunny, color: Colors.white),
+          text: const Text(
+            'Make hotter',
+            style: TextStyle(color: Colors.white),
+          ),
+          gradient: redGradient,
+          onTap: () => sunnyPressed = true,
+        ),
+        FSMenuItem(
+          icon: const Icon(Icons.ac_unit, color: Colors.white),
+          text: const Text(
+            'Make colder',
+            style: TextStyle(color: Colors.white),
+          ),
+          gradient: blueGradient,
+          onTap: () => snowPressed = true,
+        ),
+        MaterialButton(
+          onPressed: () {},
+          color: Colors.blue,
+          child: const Text('Material'),
+        ),
+      ],
+    );
 
     testWidgets('renders correctly', (tester) async {
       await tester.pumpWidget(_buildApp(buildMenu()));
@@ -125,12 +130,14 @@ void main() {
     });
 
     testWidgets('renders items with no items list (no crash)', (tester) async {
-      await tester.pumpWidget(_buildApp(
-        FullScreenMenuBaseWidget(
-          backgroundColor: Colors.black,
-          animationController: (_) {},
+      await tester.pumpWidget(
+        _buildApp(
+          FullScreenMenuBaseWidget(
+            backgroundColor: Colors.black,
+            animationController: (_) {},
+          ),
         ),
-      ));
+      );
       expect(find.byType(FullScreenMenuBaseWidget), findsOneWidget);
     });
 
@@ -231,22 +238,22 @@ void main() {
 
   group('FSMenuItem', () {
     testWidgets('renders icon and text', (tester) async {
-      await tester.pumpWidget(_buildApp(
-        FSMenuItem(
-          icon: const Icon(Icons.star),
-          text: const Text('Star'),
-          gradient: orangeGradient,
-          onTap: () {},
+      await tester.pumpWidget(
+        _buildApp(
+          FSMenuItem(
+            icon: const Icon(Icons.star),
+            text: const Text('Star'),
+            gradient: orangeGradient,
+            onTap: () {},
+          ),
         ),
-      ));
+      );
       expect(find.byIcon(Icons.star), findsOneWidget);
       expect(find.text('Star'), findsOneWidget);
     });
 
     testWidgets('uses blueGrey gradient when none provided', (tester) async {
-      await tester.pumpWidget(_buildApp(
-        FSMenuItem(onTap: () {}),
-      ));
+      await tester.pumpWidget(_buildApp(FSMenuItem(onTap: () {})));
       final container = tester.widget<Container>(
         find.descendant(
           of: find.byType(FSMenuItem),
@@ -261,12 +268,11 @@ void main() {
 
     testWidgets('onTap fires', (tester) async {
       bool tapped = false;
-      await tester.pumpWidget(_buildApp(
-        FSMenuItem(
-          icon: const Icon(Icons.star),
-          onTap: () => tapped = true,
+      await tester.pumpWidget(
+        _buildApp(
+          FSMenuItem(icon: const Icon(Icons.star), onTap: () => tapped = true),
         ),
-      ));
+      );
       // Invoke the GestureDetector's onTap directly — FSMenuItem renders as a
       // small Column inside a Scaffold body which makes hit-testing unreliable.
       // The wiring onTap → GestureDetector.onTap is what we're verifying here.
@@ -297,7 +303,5 @@ void main() {
 }
 
 Widget _buildApp(Widget child) {
-  return MaterialApp(
-    home: Scaffold(body: child),
-  );
+  return MaterialApp(home: Scaffold(body: child));
 }

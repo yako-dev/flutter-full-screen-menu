@@ -42,10 +42,7 @@ class FSMenuItem extends StatelessWidget {
             ),
             child: icon,
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: text,
-          ),
+          Padding(padding: const EdgeInsets.only(top: 10), child: text),
         ],
       ),
     );

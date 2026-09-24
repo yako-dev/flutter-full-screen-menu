@@ -109,11 +109,12 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
                   child: Text(
                     item.text,
                     style: TextStyle(
-                        color: color,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold),
+                      color: color,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                )
+                ),
               ],
             ),
           ),

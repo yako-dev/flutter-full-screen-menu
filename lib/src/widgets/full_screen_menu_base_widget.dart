@@ -56,12 +56,14 @@ class _FullScreenMenuBaseWidgetState extends State<FullScreenMenuBaseWidget>
       vsync: this,
     );
     widget.animationController(animationController);
-    scaleAnimation = Tween<double>(begin: 0.9, end: 1.0).animate(
-      animationController,
-    );
-    fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      animationController,
-    );
+    scaleAnimation = Tween<double>(
+      begin: 0.9,
+      end: 1.0,
+    ).animate(animationController);
+    fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(animationController);
     animationController.forward();
   }
 
@@ -91,9 +93,7 @@ class _FullScreenMenuBaseWidgetState extends State<FullScreenMenuBaseWidget>
       child: Container(
         width: double.infinity,
         alignment: Alignment.bottomCenter,
-        decoration: BoxDecoration(
-          color: _getBackgroundColor(context),
-        ),
+        decoration: BoxDecoration(color: _getBackgroundColor(context)),
         // The background covers the whole screen, including the status bar and
         // home indicator areas; the items and close button stay inside them.
         child: SafeArea(
