@@ -1,5 +1,5 @@
 import 'package:example/fab_bottom_app_bar.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:full_screen_menu/full_screen_menu.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -32,7 +32,9 @@ class HomeScreen extends StatelessWidget {
           onTabSelected: (index) {},
           items: [
             FABBottomAppBarItem(
-                iconData: Icons.format_list_bulleted, text: 'lists'),
+              iconData: Icons.format_list_bulleted,
+              text: 'lists',
+            ),
             FABBottomAppBarItem(iconData: Icons.people, text: 'people'),
             FABBottomAppBarItem(iconData: Icons.attach_money, text: 'money'),
             FABBottomAppBarItem(iconData: Icons.more_horiz, text: 'dots'),
@@ -55,15 +57,19 @@ class HomeScreen extends StatelessWidget {
       items: [
         FSMenuItem(
           icon: const Icon(Icons.ac_unit, color: Colors.white),
-          text:
-              const Text('Make colder', style: TextStyle(color: Colors.white)),
+          text: const Text(
+            'Make colder',
+            style: TextStyle(color: Colors.white),
+          ),
           gradient: blueGradient,
           onTap: () => debugPrint('Make colder'),
         ),
         FSMenuItem(
           icon: const Icon(Icons.wb_sunny, color: Colors.white),
-          text:
-              const Text('Make hotter', style: TextStyle(color: Colors.white)),
+          text: const Text(
+            'Make hotter',
+            style: TextStyle(color: Colors.white),
+          ),
           gradient: redGradient,
           onTap: () => debugPrint('Make hotter'),
         ),
@@ -75,8 +81,10 @@ class HomeScreen extends StatelessWidget {
         ),
         FSMenuItem(
           icon: const Icon(Icons.grain, color: Colors.white),
-          text:
-              const Text('Give a rain', style: TextStyle(color: Colors.white)),
+          text: const Text(
+            'Give a rain',
+            style: TextStyle(color: Colors.white),
+          ),
           gradient: deepPurpleGradient,
           onTap: () => debugPrint('Give a rain'),
         ),

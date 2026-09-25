@@ -9,10 +9,13 @@
 
 ## Installing:
 
+Requirements: Flutter 3.47+ (the package uses [`material_ui`](https://pub.dev/packages/material_ui)).
+On older Flutter versions, use `full_screen_menu: ^2.0.1`.
+
 1. Add the dependency in your `pubspec.yaml` file.
 ```yaml
 dependencies:
-  full_screen_menu: ^2.0.1
+  full_screen_menu: ^3.0.0
 ```
 
 2. Import the `full_screen_menu` package.

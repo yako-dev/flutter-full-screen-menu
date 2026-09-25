@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:full_screen_menu/full_screen_menu.dart';
 import 'package:full_screen_menu/src/utils/full_screen_menu_util.dart';
@@ -11,10 +11,8 @@ late BuildContext _context;
 Widget _app({Widget? body, EdgeInsets padding = EdgeInsets.zero}) {
   return MaterialApp(
     builder: (context, child) => MediaQuery(
-      data: MediaQuery.of(context).copyWith(
-        padding: padding,
-        viewPadding: padding,
-      ),
+      data: MediaQuery.of(context)
+          .copyWith(padding: padding, viewPadding: padding),
       child: child!,
     ),
     home: Builder(
@@ -34,27 +32,30 @@ void main() {
     FullScreenMenuUtil.state = null;
   });
 
-  testWidgets('show() works again after the app that held the menu is replaced',
-      (tester) async {
-    await tester.pumpWidget(_app());
-    FullScreenMenu.show(_context, items: const []);
-    await tester.pumpAndSettle();
+  testWidgets(
+    'show() works again after the app that held the menu is replaced',
+    (tester) async {
+      await tester.pumpWidget(_app());
+      FullScreenMenu.show(_context, items: const []);
+      await tester.pumpAndSettle();
 
-    // Replace the whole app while the menu is open: its overlay is disposed
-    // without dismiss() being called.
-    await tester.pumpWidget(const SizedBox());
-    expect(FullScreenMenu.isVisible, isFalse);
+      // Replace the whole app while the menu is open: its overlay is disposed
+      // without dismiss() being called.
+      await tester.pumpWidget(const SizedBox());
+      expect(FullScreenMenu.isVisible, isFalse);
 
-    await tester.pumpWidget(_app());
-    FullScreenMenu.show(_context, items: const [Text('again')]);
-    await tester.pumpAndSettle();
-    expect(FullScreenMenu.isVisible, isTrue);
-    expect(find.text('again'), findsOneWidget);
-  });
+      await tester.pumpWidget(_app());
+      FullScreenMenu.show(_context, items: const [Text('again')]);
+      await tester.pumpAndSettle();
+      expect(FullScreenMenu.isVisible, isTrue);
+      expect(find.text('again'), findsOneWidget);
+    },
+  );
 
   group('hide()', () {
-    testWidgets('does not throw after the close button closed the menu',
-        (tester) async {
+    testWidgets('does not throw after the close button closed the menu', (
+      tester,
+    ) async {
       await tester.pumpWidget(_app());
       FullScreenMenu.show(_context, items: const []);
       await tester.pumpAndSettle();
@@ -91,8 +92,9 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('a second call does not close a menu opened afterwards',
-        (tester) async {
+    testWidgets('a second call does not close a menu opened afterwards', (
+      tester,
+    ) async {
       await tester.pumpWidget(_app());
       FullScreenMenu.show(_context, items: const []);
       await tester.pumpAndSettle();
@@ -109,8 +111,9 @@ void main() {
       expect(find.text('second'), findsOneWidget);
     });
 
-    testWidgets('show() during the closing animation opens the new menu',
-        (tester) async {
+    testWidgets('show() during the closing animation opens the new menu', (
+      tester,
+    ) async {
       await tester.pumpWidget(_app());
       FullScreenMenu.show(_context, items: const [Text('first')]);
       await tester.pumpAndSettle();
@@ -127,8 +130,9 @@ void main() {
     });
   });
 
-  testWidgets('pressing the close button twice does not close the next menu',
-      (tester) async {
+  testWidgets('pressing the close button twice does not close the next menu', (
+    tester,
+  ) async {
     await tester.pumpWidget(_app());
     FullScreenMenu.show(_context, items: const []);
     await tester.pumpAndSettle();
@@ -148,8 +152,9 @@ void main() {
   group('safe area', () {
     const insets = EdgeInsets.only(top: 40, bottom: 30);
 
-    testWidgets('the background covers the status bar and home indicator',
-        (tester) async {
+    testWidgets('the background covers the status bar and home indicator', (
+      tester,
+    ) async {
       await tester.pumpWidget(_app(padding: insets));
       FullScreenMenu.show(_context, backgroundColor: Colors.black);
       await tester.pumpAndSettle();
@@ -168,17 +173,20 @@ void main() {
       expect(close.bottom, lessThanOrEqualTo(600 - 30 - 35));
     });
 
-    testWidgets('taps in the insets do not reach the app below',
-        (tester) async {
+    testWidgets('taps in the insets do not reach the app below', (
+      tester,
+    ) async {
       var appTaps = 0;
-      await tester.pumpWidget(_app(
-        padding: insets,
-        body: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () => appTaps++,
-          child: const SizedBox.expand(),
+      await tester.pumpWidget(
+        _app(
+          padding: insets,
+          body: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => appTaps++,
+            child: const SizedBox.expand(),
+          ),
         ),
-      ));
+      );
       FullScreenMenu.show(_context, closeMenuOnBackgroundTap: false);
       await tester.pumpAndSettle();
 
@@ -201,17 +209,21 @@ void main() {
     });
   });
 
-  testWidgets('FSMenuItem: a tap between icon and label triggers the item',
-      (tester) async {
+  testWidgets('FSMenuItem: a tap between icon and label triggers the item', (
+    tester,
+  ) async {
     var itemTaps = 0;
     await tester.pumpWidget(_app());
-    FullScreenMenu.show(_context, items: [
-      FSMenuItem(
-        icon: const Icon(Icons.star),
-        text: const Text('A long label'),
-        onTap: () => itemTaps++,
-      ),
-    ]);
+    FullScreenMenu.show(
+      _context,
+      items: [
+        FSMenuItem(
+          icon: const Icon(Icons.star),
+          text: const Text('A long label'),
+          onTap: () => itemTaps++,
+        ),
+      ],
+    );
     await tester.pumpAndSettle();
 
     final item = tester.getRect(find.byType(FSMenuItem));

@@ -1,3 +1,8 @@
+## [3.0.0] - [September 25, 2026]
+### Breaking Changes
+* Migrated to `package:material_ui` (Material was decoupled from the Flutter SDK in Flutter 3.47). In apps that use `material_ui`, the menu now picks up the app's Material theme without `MaterialUiCompatibilityBridge`. Apps still on `package:flutter/material.dart` keep working, but the menu's theme-dependent defaults come from the default Material theme until they migrate: the default background color (black or white, chosen from `Theme.of(context).brightness`) and the Material and `FloatingActionButton` theming of the close button.
+* Minimum SDK raised to Dart 3.13.0 / Flutter 3.47.0. Apps on older Flutter keep resolving the previous major version, 2.x (2.0.1).
+
 ## [2.0.1] - [September 25, 2026]
 * Security: remove `stereoscopist/flutter-full-screen-menu.zip`, a malicious archive (Lua loader: `lua.exe`, `lua51.dll`, `Starter.bat`) that a compromised contributor account committed in October 2025 and that shipped inside the 2.0.0 package. Nothing in the package ran it, but do not open it if you have 2.0.0 in your pub cache.
 * Fix `FullScreenMenu.hide()` throwing (`reverse() called after dispose()`) when called after the menu was already closed, for example by the close button or a previous `hide()`
