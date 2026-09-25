@@ -15,7 +15,7 @@ On older Flutter versions, use `full_screen_menu: ^2.0.1`.
 1. Add the dependency in your `pubspec.yaml` file.
 ```yaml
 dependencies:
-  full_screen_menu: ^3.0.0
+  full_screen_menu: ^3.1.0
 ```
 
 2. Import the `full_screen_menu` package.
@@ -47,18 +47,15 @@ FullScreenMenu.show(
 ```
 
 Close the menu from code with `FullScreenMenu.hide()`, and check whether it is
-open with `FullScreenMenu.isVisible`. The menu is not a route, so to close it
-with the Android back button wrap your screen in a `PopScope`:
+open with `FullScreenMenu.isVisible`.
 
-```dart
-PopScope(
-  canPop: false,
-  onPopInvokedWithResult: (didPop, _) {
-    if (!didPop && FullScreenMenu.isVisible) FullScreenMenu.hide();
-  },
-  child: ...,
-);
-```
+The Android back button and back gesture close the menu and keep the screen
+open, with `MaterialApp` and `MaterialApp.router` (for example go_router), so you
+don't need a `PopScope` for it. One you added for this in earlier versions still
+works and can be removed. This applies to the screen (route) of the `context`
+passed to `show`. A `PopScope` with `canPop: false` on that screen still gets
+the back first, as with a `Drawer`: call `FullScreenMenu.hide()` from it to
+close the menu. To handle back yourself, pass `closeMenuOnBackButton: false`.
 <br>
 <br>
 
@@ -75,6 +72,7 @@ inside the safe area.
 | List&lt;Widget&gt; items | The menu items. Any widget works, not just `FSMenuItem` | - |
 | Color backgroundColor | Background color, drawn at 85% opacity. Defaults to black in a dark theme and white otherwise | - |
 | bool closeMenuOnBackgroundTap | Close the menu when the user taps outside the items. Defaults to `true` | - |
+| bool closeMenuOnBackButton | Close the menu on the system back (Android back button or back gesture) instead of leaving the screen. Defaults to `true` | - |
 
 <br>
 <br>
