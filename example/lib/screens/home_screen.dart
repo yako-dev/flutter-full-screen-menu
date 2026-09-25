@@ -7,44 +7,36 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (didPop, _) {
-        if (didPop) return;
-        if (FullScreenMenu.isVisible) {
-          FullScreenMenu.hide();
-        }
-      },
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Full screen menu demo')),
-        body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/google_maps.png'),
-              fit: BoxFit.cover,
-            ),
+    // The Android back button closes the menu; no PopScope needed.
+    return Scaffold(
+      appBar: AppBar(title: const Text('Full screen menu demo')),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/google_maps.png'),
+            fit: BoxFit.cover,
           ),
         ),
-        bottomNavigationBar: FABBottomAppBar(
-          color: Colors.grey,
-          selectedColor: Theme.of(context).colorScheme.secondary,
-          notchedShape: const CircularNotchedRectangle(),
-          onTabSelected: (index) {},
-          items: [
-            FABBottomAppBarItem(
-              iconData: Icons.format_list_bulleted,
-              text: 'lists',
-            ),
-            FABBottomAppBarItem(iconData: Icons.people, text: 'people'),
-            FABBottomAppBarItem(iconData: Icons.attach_money, text: 'money'),
-            FABBottomAppBarItem(iconData: Icons.more_horiz, text: 'dots'),
-          ],
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => _showFullScreenMenu(context),
-          child: const Icon(Icons.add),
-        ),
+      ),
+      bottomNavigationBar: FABBottomAppBar(
+        color: Colors.grey,
+        selectedColor: Theme.of(context).colorScheme.secondary,
+        notchedShape: const CircularNotchedRectangle(),
+        onTabSelected: (index) {},
+        items: [
+          FABBottomAppBarItem(
+            iconData: Icons.format_list_bulleted,
+            text: 'lists',
+          ),
+          FABBottomAppBarItem(iconData: Icons.people, text: 'people'),
+          FABBottomAppBarItem(iconData: Icons.attach_money, text: 'money'),
+          FABBottomAppBarItem(iconData: Icons.more_horiz, text: 'dots'),
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showFullScreenMenu(context),
+        child: const Icon(Icons.add),
       ),
     );
   }

@@ -1,3 +1,8 @@
+## [3.1.0] - [September 25, 2026]
+* The system back (Android back button and back gesture, including predictive back) now closes an open menu instead of leaving the screen or closing the app, with `MaterialApp` and `MaterialApp.router`. No `PopScope` is needed; one added for this still works and can be removed ([#17](https://github.com/yako-dev/flutter-full-screen-menu/issues/17)). Thanks to @itsezlife for the suggestion.
+* Add `closeMenuOnBackButton` to `FullScreenMenu.show()`. Defaults to `true`; pass `false` to handle back yourself.
+* Example: remove the `PopScope` workaround
+
 ## [3.0.0] - [September 25, 2026]
 ### Breaking Changes
 * Migrated to `package:material_ui` (Material was decoupled from the Flutter SDK in Flutter 3.47). In apps that use `material_ui`, the menu now picks up the app's Material theme without `MaterialUiCompatibilityBridge`. Apps still on `package:flutter/material.dart` keep working, but the menu's theme-dependent defaults come from the default Material theme until they migrate: the default background color (black or white, chosen from `Theme.of(context).brightness`) and the Material and `FloatingActionButton` theming of the close button.
