@@ -1,3 +1,7 @@
+## [3.1.1] - [September 26, 2026]
+
+* README: a **More from Yako** grid with an animated preview of each of our other packages.
+
 ## [3.1.0] - [September 25, 2026]
 * The system back (Android back button and back gesture, including predictive back) now closes an open menu instead of leaving the screen or closing the app, with `MaterialApp` and `MaterialApp.router`. No `PopScope` is needed; one added for this still works and can be removed ([#17](https://github.com/yako-dev/flutter-full-screen-menu/issues/17)). Thanks to @itsezlife for the suggestion.
 * Add `closeMenuOnBackButton` to `FullScreenMenu.show()`. Defaults to `true`; pass `false` to handle back yourself.
